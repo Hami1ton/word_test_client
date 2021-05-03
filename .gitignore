@@ -1,0 +1,4 @@
+node_modules
+.eslintcache
+
+src/react-app-env.d.ts
