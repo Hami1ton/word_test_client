@@ -3,7 +3,7 @@ import * as React from 'react';
 export interface ITextInput {
     value?: string;
     onChange: (event: any) => void;
-  }
+}
   
 
 class TextInput extends React.Component<ITextInput, {inputText: string;}> {

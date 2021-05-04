@@ -3,17 +3,24 @@ import ApiRequestUtil from '../../util/ApiRequestUtil';
 import { LoginInfo } from './LoginInfo';
 import TextInput from '../../core/component/TextInput';
 
-class Login extends React.Component {
+export interface ILogin {
+  logined: () => void;
+}
+
+class Login extends React.Component<ILogin> {
 
   loginInfo = new LoginInfo();
 
   onSubmit = async () => {
-    const result = ApiRequestUtil.login(this.loginInfo.request);
-    console.log(result);
+    const res = await ApiRequestUtil.login(this.loginInfo.request);
+    if (res.result === 'success') {
+      this.props.logined();
+    } else {
+      console.error(res);
+    }
   }
 
   updateUserId = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
     this.loginInfo.userId = event.target.value;
   }
 

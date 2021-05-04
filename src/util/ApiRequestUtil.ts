@@ -4,10 +4,8 @@ const API_URL = 'http://127.0.0.1:5000/';
 class ApiRequestUtil {
 
     static login(param = {}) {
-        // this.sendGetRequest('login');
-        console.log(param);
-        this.sendPostRequest('login', param);
-        return "logined";
+        const res = this.sendPostRequest('login', param);
+        return res;
     }
 
 
@@ -19,23 +17,33 @@ class ApiRequestUtil {
                 'Content-Type': 'application/json'
             }
         }).then(response => {
-            console.log(response.status); // => 200
             return response.json();
         });
     }
 
-    private static sendPostRequest(path: string, param = {}) {
+    private static async sendPostRequest(path: string, param = {}) {
 
-        fetch(API_URL + path, {
+        const res = await fetch(API_URL + path, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(param)
-        }).then(response => {
-            console.log(response.status); // => 200
-            return response.json();
         });
+        const data = await res.json();
+        return data;
+
+        // fetch(API_URL + path, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify(param)
+        // }).then(response => {
+        //     return response.json();
+        // }).then( data => {
+        //     console.log(data);
+        // });
     }
 
 }
