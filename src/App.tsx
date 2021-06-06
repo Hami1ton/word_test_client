@@ -1,24 +1,26 @@
 import * as React from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import Login from './pages/Login';
 import Menu from './pages/Menu';
+import LoginStore from './core/store/LoginStore';
+import { observer } from 'mobx-react';
 
+export interface IAPP {
+  loginStore: LoginStore;
+}
 
-class App extends React.Component {
-  
-  isLoggedIn: boolean = false;
+@observer
+class App extends React.Component<IAPP> {
 
   logined = () => {
-    this.isLoggedIn = true;
+    this.props.loginStore.changeLoginState();
   }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          {!this.isLoggedIn
+          {this.props.loginStore.isLogined === false
             ? <Login logined={this.logined}/>
             : <Menu />
           }
