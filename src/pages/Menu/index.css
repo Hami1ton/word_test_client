@@ -1,0 +1,8 @@
+.button-like-link {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
