@@ -10,7 +10,6 @@ class ApiRequestUtil {
 
     static startTest(param = {}) {
         const res = this.sendGetRequest('start_test');
-        console.log(res);
         return res;
     }
 
