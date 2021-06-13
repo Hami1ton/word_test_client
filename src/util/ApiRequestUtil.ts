@@ -8,17 +8,21 @@ class ApiRequestUtil {
         return res;
     }
 
+    static startTest(param = {}) {
+        const res = this.sendGetRequest('start_test');
+        console.log(res);
+        return res;
+    }
 
-    private static sendGetRequest(path: string) {
+    private static async sendGetRequest(path: string) {
 
-        fetch(API_URL + path, {
+        const res = await fetch(API_URL + path, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(response => {
-            return response.json();
         });
+        return res.json();
     }
 
     private static async sendPostRequest(path: string, param = {}) {
@@ -32,18 +36,6 @@ class ApiRequestUtil {
         });
         const data = await res.json();
         return data;
-
-        // fetch(API_URL + path, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify(param)
-        // }).then(response => {
-        //     return response.json();
-        // }).then( data => {
-        //     console.log(data);
-        // });
     }
 
 }
