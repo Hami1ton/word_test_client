@@ -13,6 +13,11 @@ class ApiRequestUtil {
         return res;
     }
 
+    static submitAnswer() {
+        console.log('回答を送信して結果を受信');
+        return null;
+    }
+
     private static async sendGetRequest(path: string) {
 
         const res = await fetch(API_URL + path, {

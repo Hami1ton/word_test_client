@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Problem from '../../core/component/Problem';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 
 export interface IWordTest {
@@ -11,11 +12,27 @@ class WordTest extends React.Component<IWordTest> {
     return <div></div>
   }
 
+
+  submitAnswer = async () => {
+    const res = await ApiRequestUtil.submitAnswer();
+
+  }
+
   problemListRenderer() {
+    // TODO stateか何かに答えを詰めてAPIに送るようにする
+    const listItems = this.props.problems.map((problem) => (
+      <li key={problem[0].toString()}>
+        <Problem problem={problem}/>
+      </li>
+    ));
+
     return (
       <div className="WordTest">
         WordTest開始
-        {this.props.problems}
+        <ul>{listItems}</ul>
+        <button onClick={this.submitAnswer}>
+            Login
+          </button>
       </div>
     );
   }
