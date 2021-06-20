@@ -1,26 +1,31 @@
 import * as React from 'react';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 
-class WordTest extends React.Component {
+export interface IWordTest {
+  problems: Array<Array<String>>;
+}
 
-  problems!: Array<any>;
+class WordTest extends React.Component<IWordTest> {
 
-  getProblems = async () => {
-    const res = await ApiRequestUtil.startTest();
-    this.problems = res;
+  noItemRenderer() {
+    return <div></div>
   }
 
-  render() {
-    // 問題を取得
-    this.getProblems();
-    console.log(this.problems);
+  problemListRenderer() {
     return (
       <div className="WordTest">
         WordTest開始
-        {this.problems}
+        {this.props.problems}
       </div>
     );
+  }
 
+  render() {
+    if (this.props.problems === undefined) {
+      // URL直うちされるなどして、問題が取得できていない場合には何も表示しない
+      return this.noItemRenderer();
+    }
+    return this.problemListRenderer();
   }
 }
 
