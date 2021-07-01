@@ -40,12 +40,12 @@ class WordTest extends React.Component<IWordTest, IState> {
   }
 
   @action
-  setScore(score: number) {
+  setScore = (score: number) => {
     this.score = score;
   }
 
   @action
-  changeSubmitFlag() {
+  changeSubmitFlag= () => {
     this.answerIsSubmitted = true;
   }
 

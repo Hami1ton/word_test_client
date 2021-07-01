@@ -8,7 +8,7 @@ import ApiRequestUtil from '../../util/ApiRequestUtil';
 class Menu extends React.Component {
 
   componentDidMount() {
-    // 初回時にも問題を作成してpropsとして渡せるように、Menu画面レンダーに問題一覧を取得する
+    // 初回時にも問題を作成してpropsとして渡せるように、Menu画面レンダー時に問題一覧を取得する
     this.getProblems();
   }
 
