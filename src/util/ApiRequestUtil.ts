@@ -1,21 +1,22 @@
 
-const API_URL = 'http://127.0.0.1:5000/';
+const API_URL = 'http://127.0.0.1:5000';
 
 class ApiRequestUtil {
 
     static login(param = {}) {
-        const res = this.sendPostRequest('login', param);
+        const res = this.sendPostRequest('/login', param);
         return res;
     }
 
     static startTest(param = {}) {
-        const res = this.sendGetRequest('start_test');
+        const res = this.sendGetRequest('/start_test');
         return res;
     }
 
-    static submitAnswer(ansers: Map<String, String>) {
-        console.log('回答を送信して結果を受信');
-        return null;
+    static submitAnswer(answers: Map<String, String>) {
+        // objectに変換してサーバに送信
+        const res = this.sendPostRequest('/scoring', Object.fromEntries(answers));
+        return res;
     }
 
     private static async sendGetRequest(path: string) {

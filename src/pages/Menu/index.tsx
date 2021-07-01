@@ -14,10 +14,6 @@ class Menu extends React.Component {
 
   problems: Array<Array<String>> = [];
 
-  onClick = async () => {
-    console.log('テストを受ける');
-  }
-
   // サーバに問い合わせ問題を取得する
   getProblems = async () => {
     const res = await ApiRequestUtil.startTest();

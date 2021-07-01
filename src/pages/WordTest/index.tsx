@@ -15,6 +15,7 @@ interface IState {
 @observer
 class WordTest extends React.Component<IWordTest, IState> {
 
+  @observable
   score: number = 0;
 
   @observable
@@ -34,7 +35,13 @@ class WordTest extends React.Component<IWordTest, IState> {
 
   submitAnswer = async () => {
     const res = await ApiRequestUtil.submitAnswer(this.state.answers);
+    this.setScore(res);
     this.changeSubmitFlag();
+  }
+
+  @action
+  setScore(score: number) {
+    this.score = score;
   }
 
   @action
