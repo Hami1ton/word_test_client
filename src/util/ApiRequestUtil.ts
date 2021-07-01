@@ -13,7 +13,7 @@ class ApiRequestUtil {
         return res;
     }
 
-    static submitAnswer() {
+    static submitAnswer(ansers: Map<String, String>) {
         console.log('回答を送信して結果を受信');
         return null;
     }

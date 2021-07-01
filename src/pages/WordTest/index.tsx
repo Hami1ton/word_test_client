@@ -1,3 +1,5 @@
+import { observable, action, makeObservable } from 'mobx';
+import { observer } from 'mobx-react';
 import * as React from 'react';
 import Problem from '../../core/component/Problem';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
@@ -7,15 +9,22 @@ export interface IWordTest {
 }
 
 interface IState {
-  answers: Array<Array<String>>;
+  answers: Map<String,String>; // キー: 英単語ID, 値: 選択した回答
 }
 
+@observer
 class WordTest extends React.Component<IWordTest, IState> {
+
+  score: number = 0;
+
+  @observable
+  answerIsSubmitted: boolean = false;
 
   constructor(props: IWordTest) {
     super(props); 
+    makeObservable(this);
     this.state = {
-      answers: [],
+      answers: new Map(),
     };
   }
 
@@ -23,20 +32,22 @@ class WordTest extends React.Component<IWordTest, IState> {
     return <div></div>
   }
 
-
   submitAnswer = async () => {
-    const res = await ApiRequestUtil.submitAnswer();
-
+    const res = await ApiRequestUtil.submitAnswer(this.state.answers);
+    this.changeSubmitFlag();
   }
 
+  @action
+  changeSubmitFlag() {
+    this.answerIsSubmitted = true;
+  }
+
+
   onSelectAnswer = (answer : Array<String>) => {
-    console.log('hoge');
-    this.state.answers.push(answer);
-    console.log(this.state.answers);
+    this.state.answers.set(answer[0], answer[1]);
   }
 
   problemListRenderer() {
-    // TODO stateか何かに答えを詰めてAPIに送るようにする
     const listItems = this.props.problems.map((problem) => (
       <li key={problem[0].toString()}>
         <Problem problem={problem} onSelected={this.onSelectAnswer}/>
@@ -49,7 +60,11 @@ class WordTest extends React.Component<IWordTest, IState> {
         <ul>{listItems}</ul>
         <button onClick={this.submitAnswer}>
             採点
-          </button>
+        </button>
+        {this.answerIsSubmitted
+            ? <div>テスト結果: {this.score} / 5 </div>
+            : <div></div>
+        }
       </div>
     );
   }
