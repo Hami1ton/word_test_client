@@ -6,7 +6,18 @@ export interface IWordTest {
   problems: Array<Array<String>>;
 }
 
-class WordTest extends React.Component<IWordTest> {
+interface IState {
+  answers: Array<Array<String>>;
+}
+
+class WordTest extends React.Component<IWordTest, IState> {
+
+  constructor(props: IWordTest) {
+    super(props); 
+    this.state = {
+      answers: [],
+    };
+  }
 
   noItemRenderer() {
     return <div></div>
@@ -18,11 +29,17 @@ class WordTest extends React.Component<IWordTest> {
 
   }
 
+  onSelectAnswer = (answer : Array<String>) => {
+    console.log('hoge');
+    this.state.answers.push(answer);
+    console.log(this.state.answers);
+  }
+
   problemListRenderer() {
     // TODO stateか何かに答えを詰めてAPIに送るようにする
     const listItems = this.props.problems.map((problem) => (
       <li key={problem[0].toString()}>
-        <Problem problem={problem}/>
+        <Problem problem={problem} onSelected={this.onSelectAnswer}/>
       </li>
     ));
 
@@ -31,7 +48,7 @@ class WordTest extends React.Component<IWordTest> {
         WordTest開始
         <ul>{listItems}</ul>
         <button onClick={this.submitAnswer}>
-            Login
+            採点
           </button>
       </div>
     );
