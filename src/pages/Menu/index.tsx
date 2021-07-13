@@ -12,6 +12,7 @@ class Menu extends React.Component {
     this.getProblems();
   }
 
+  // [英単語id, 英単語, 肢1, 肢2, 肢3]のリストのリスト
   problems: Array<Array<String>> = [];
 
   // サーバに問い合わせ問題を取得する
