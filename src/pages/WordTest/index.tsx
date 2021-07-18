@@ -1,11 +1,12 @@
 import { observable, action, makeObservable } from 'mobx';
 import { observer } from 'mobx-react';
 import * as React from 'react';
+import { ProblemInfo } from '../../core/component/data/ProblemInfo';
 import Problem from '../../core/component/Problem';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 
 export interface IWordTest {
-  problems: Array<Array<String>>;
+  problems: Array<ProblemInfo>;
 }
 
 interface IState {
@@ -56,7 +57,7 @@ class WordTest extends React.Component<IWordTest, IState> {
 
   problemListRenderer() {
     const listItems = this.props.problems.map((problem) => (
-      <li key={problem[0].toString()}>
+      <li key={problem.id}>
         <Problem problem={problem} onSelected={this.onSelectAnswer}/>
       </li>
     ));

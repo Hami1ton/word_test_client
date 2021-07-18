@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { ProblemInfo } from '../data/ProblemInfo';
 import './index.css';
 
 export interface IProblem {
-    problem: Array<String>;
+    problem: ProblemInfo;
     onSelected: (answer : Array<String>) => void;
 }
   
@@ -11,7 +12,7 @@ class Problem extends React.Component<IProblem> {
 
     onClick = (event: any) => {
         const answerMean = event.target.value;
-        const eWordId = this.props.problem[0];
+        const eWordId = this.props.problem.id;
         const answer = [eWordId , answerMean];
         this.props.onSelected(answer);
 
@@ -19,14 +20,14 @@ class Problem extends React.Component<IProblem> {
 
     render() {
         const { problem } = this.props;
-        const eword = problem[1].toString();
+        const eword = problem.word;
         return (
             <div className='problem' >
                 {eword}の意味は？ <br/>
                 <div className='problem_choices'>
-                    <input type="radio" name={eword} value={problem[2][0]} onChange={this.onClick}/> {problem[2][0]} <br />
-                    <input type="radio" name={eword} value={problem[2][1]} onClick={this.onClick}/> {problem[2][1]} <br />
-                    <input type="radio" name={eword} value={problem[2][2]} onClick={this.onClick}/> {problem[2][2]} <br />
+                    <input type="radio" name={eword} value={problem.choice1} onChange={this.onClick}/> {problem.choice1} <br />
+                    <input type="radio" name={eword} value={problem.choice2} onClick={this.onClick}/> {problem.choice2} <br />
+                    <input type="radio" name={eword} value={problem.choice3} onClick={this.onClick}/> {problem.choice3} <br />
                 </div>
             </div>
         );

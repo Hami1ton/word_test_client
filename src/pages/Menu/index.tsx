@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import WordTest from '../WordTest';
 import ExamResult from '../ExamResult';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
+import { ProblemInfo } from '../../core/component/data/ProblemInfo';
 
 class Menu extends React.Component {
 
@@ -13,7 +14,7 @@ class Menu extends React.Component {
   }
 
   // [英単語id, 英単語, 肢1, 肢2, 肢3]のリストのリスト
-  problems: Array<Array<String>> = [];
+  problems: Array<ProblemInfo> = [];
 
   // サーバに問い合わせ問題を取得する
   getProblems = async () => {
