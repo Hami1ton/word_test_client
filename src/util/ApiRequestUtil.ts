@@ -15,7 +15,10 @@ class ApiRequestUtil {
 
     static submitAnswer(answers: Map<String, String>) {
         // objectに変換してサーバに送信
-        const res = this.sendPostRequest('/scoring', Object.fromEntries(answers));
+        console.log(answers);
+        const res = this.sendPostRequest('/score', {
+            answers : Object.fromEntries(answers),
+        });
         return res;
     }
 
