@@ -12,8 +12,8 @@ class Problem extends React.Component<IProblem> {
 
     onClick = (event: any) => {
         const answerMean = event.target.value;
-        const eWordId = this.props.problem.id;
-        const answer = [eWordId , answerMean];
+        const eWord = this.props.problem.word;
+        const answer = [eWord , answerMean];
         this.props.onSelected(answer);
 
     }

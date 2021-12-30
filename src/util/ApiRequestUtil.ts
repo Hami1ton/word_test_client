@@ -9,7 +9,7 @@ class ApiRequestUtil {
     }
 
     static startTest(param = {}) {
-        const res = this.sendGetRequest('/problems');
+        const res = this.sendGetRequest('/takeExam');
         return res;
     }
 
