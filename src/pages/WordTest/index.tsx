@@ -57,7 +57,7 @@ class WordTest extends React.Component<IWordTest, IState> {
 
   problemListRenderer() {
     const listItems = this.props.problems.map((problem) => (
-      <li key={problem.word}>
+      <li key={problem.id}>
         <Problem problem={problem} onSelected={this.onSelectAnswer}/>
       </li>
     ));
