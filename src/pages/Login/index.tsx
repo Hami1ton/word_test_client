@@ -2,9 +2,10 @@ import * as React from 'react';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 import { LoginInfo } from './LoginInfo';
 import TextInput from '../../core/component/TextInput';
+import LoginStore from '../../core/store/LoginStore';
 
 export interface ILogin {
-  logined: () => void;
+  loginStore: LoginStore;
 }
 
 class Login extends React.Component<ILogin> {
@@ -14,7 +15,9 @@ class Login extends React.Component<ILogin> {
   onSubmit = async () => {
     const res = await ApiRequestUtil.login(this.loginInfo.request);
     if (res.result === 'success') {
-      this.props.logined();
+      this.props.loginStore.changeLoginState();
+      this.props.loginStore.saveUserId(this.loginInfo.userId);
+
     } else {
       console.error(res);
     }

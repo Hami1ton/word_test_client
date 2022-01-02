@@ -8,9 +8,15 @@ class LoginStore {
   @observable
   isLogined = false;
 
+  userId: string = "";
+
   @action
   changeLoginState() {
     this.isLogined = true;
+  }
+
+  saveUserId(id: string) {
+    this.userId = id;
   }
 
 }
