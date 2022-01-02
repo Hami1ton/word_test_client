@@ -5,7 +5,7 @@ import { ProblemInfo } from '../../core/component/data/ProblemInfo';
 import Problem from '../../core/component/Problem';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 
-export interface IWordTest {
+export interface ITakeExam {
   problems: Array<ProblemInfo>;
 }
 
@@ -14,7 +14,7 @@ interface IState {
 }
 
 @observer
-class WordTest extends React.Component<IWordTest, IState> {
+class TakeExam extends React.Component<ITakeExam, IState> {
 
   @observable
   score: number = 0;
@@ -22,7 +22,7 @@ class WordTest extends React.Component<IWordTest, IState> {
   @observable
   answerIsSubmitted: boolean = false;
 
-  constructor(props: IWordTest) {
+  constructor(props: ITakeExam) {
     super(props); 
     makeObservable(this);
     this.state = {
@@ -63,8 +63,8 @@ class WordTest extends React.Component<IWordTest, IState> {
     ));
 
     return (
-      <div className="WordTest">
-        WordTest開始
+      <div className="TakeExam">
+        テスト開始
         <ul>{listItems}</ul>
         <button onClick={this.submitAnswer}>
             採点
@@ -86,4 +86,4 @@ class WordTest extends React.Component<IWordTest, IState> {
   }
 }
 
-export default WordTest;
+export default TakeExam;
