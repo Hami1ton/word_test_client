@@ -3,9 +3,11 @@ import { observer } from 'mobx-react';
 import * as React from 'react';
 import { ProblemInfo } from '../../core/component/data/ProblemInfo';
 import Problem from '../../core/component/Problem';
+import LoginStore from '../../core/store/LoginStore';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 
 export interface ITakeExam {
+  loginStore: LoginStore;
   problems: Array<ProblemInfo>;
 }
 
@@ -35,7 +37,7 @@ class TakeExam extends React.Component<ITakeExam, IState> {
   }
 
   submitAnswer = async () => {
-    const res = await ApiRequestUtil.submitAnswer(this.state.answers);
+    const res = await ApiRequestUtil.submitAnswer(this.props.loginStore.userId, this.state.answers);
     this.setScore(res);
     this.changeSubmitFlag();
   }

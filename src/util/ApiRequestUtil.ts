@@ -13,10 +13,10 @@ class ApiRequestUtil {
         return res;
     }
 
-    static submitAnswer(answers: Map<String, String>) {
+    static submitAnswer(userId: string, answers: Map<String, String>) {
         // objectに変換してサーバに送信
-        console.log(answers);
         const res = this.sendPostRequest('/scoreExam', {
+            userId : userId,
             answers : Object.fromEntries(answers),
         });
         return res;

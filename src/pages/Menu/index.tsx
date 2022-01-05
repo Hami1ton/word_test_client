@@ -5,8 +5,13 @@ import TakeExam from '../TakeExam';
 import ExamResult from '../ExamResult';
 import ApiRequestUtil from '../../util/ApiRequestUtil';
 import { ProblemInfo } from '../../core/component/data/ProblemInfo';
+import LoginStore from '../../core/store/LoginStore';
 
-class Menu extends React.Component {
+export interface IMenu {
+  loginStore: LoginStore;
+}
+
+class Menu extends React.Component<IMenu> {
 
   componentDidMount() {
     // 初回時にも問題を作成してpropsとして渡せるように、Menu画面レンダー時に問題一覧を取得する
@@ -33,7 +38,7 @@ class Menu extends React.Component {
           <Link to="/ExamResult" className="link">過去の結果をみる</Link><br />
 
           <Switch>
-            <Route exact path="/TakeExam" render={ () => <TakeExam problems={this.problems} /> } />
+            <Route exact path="/TakeExam" render={ () => <TakeExam loginStore={this.props.loginStore} problems={this.problems} /> } />
             <Route exact path="/ExamResult" component={ExamResult} />
           </Switch>
         </BrowserRouter>

@@ -22,7 +22,7 @@ class App extends React.Component<IAPP> {
         <header className="App-header">
           {this.props.loginStore.isLogined === false
             ? <Login loginStore={this.props.loginStore}/>
-            : <Menu />
+            : <Menu loginStore={this.props.loginStore} />
           }
         </header>
       </div>
