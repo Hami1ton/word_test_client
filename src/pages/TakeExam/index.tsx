@@ -27,14 +27,10 @@ class TakeExam extends React.Component<ITakeExam, IState> {
   @observable
   problems: Array<ProblemInfo> = [];
 
-  @action
-  componentDidMount() {
-    this.getProblems();
-  }
-
   constructor(props: ITakeExam) {
     super(props); 
     makeObservable(this);
+    this.getProblems();
     this.state = {
       answers: new Map(),
     };
@@ -44,16 +40,21 @@ class TakeExam extends React.Component<ITakeExam, IState> {
     return <div></div>
   }
 
-  // サーバに問い合わせ問題を取得する
-  getProblems = async () => {
-    const res = await ApiRequestUtil.startTest();
-    this.problems = res;
-  }
-
   submitAnswer = async () => {
     const res = await ApiRequestUtil.submitAnswer(this.props.loginStore.userId, this.state.answers);
     this.setScore(res);
     this.changeSubmitFlag();
+  }
+
+  // サーバに問い合わせ問題を取得する
+  getProblems = async () => {
+    const res = await ApiRequestUtil.startTest();
+    this.setProblems(res);
+  }
+
+  @action
+  setProblems = (problems: Array<ProblemInfo>) => {
+    this.problems = problems;
   }
 
   @action
