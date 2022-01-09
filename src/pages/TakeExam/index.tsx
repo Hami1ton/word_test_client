@@ -8,7 +8,6 @@ import ApiRequestUtil from '../../util/ApiRequestUtil';
 
 export interface ITakeExam {
   loginStore: LoginStore;
-  problems: Array<ProblemInfo>;
 }
 
 interface IState {
@@ -24,6 +23,15 @@ class TakeExam extends React.Component<ITakeExam, IState> {
   @observable
   answerIsSubmitted: boolean = false;
 
+  // [英単語id, 英単語, 肢1, 肢2, 肢3]のリストのリスト
+  @observable
+  problems: Array<ProblemInfo> = [];
+
+  @action
+  componentDidMount() {
+    this.getProblems();
+  }
+
   constructor(props: ITakeExam) {
     super(props); 
     makeObservable(this);
@@ -34,6 +42,12 @@ class TakeExam extends React.Component<ITakeExam, IState> {
 
   noItemRenderer() {
     return <div></div>
+  }
+
+  // サーバに問い合わせ問題を取得する
+  getProblems = async () => {
+    const res = await ApiRequestUtil.startTest();
+    this.problems = res;
   }
 
   submitAnswer = async () => {
@@ -52,13 +66,12 @@ class TakeExam extends React.Component<ITakeExam, IState> {
     this.answerIsSubmitted = true;
   }
 
-
   onSelectAnswer = (answer : Array<String>) => {
     this.state.answers.set(answer[0], answer[1]);
   }
 
   problemListRenderer() {
-    const listItems = this.props.problems.map((problem) => (
+    const listItems = this.problems.map((problem) => (
       <li key={problem.id}>
         <Problem problem={problem} onSelected={this.onSelectAnswer}/>
       </li>
@@ -80,7 +93,7 @@ class TakeExam extends React.Component<ITakeExam, IState> {
   }
 
   render() {
-    if (this.props.problems === undefined) {
+    if (this.problems === undefined) {
       // URL直うちされるなどして、問題が取得できていない場合には何も表示しない
       return this.noItemRenderer();
     }
