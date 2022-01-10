@@ -3,6 +3,11 @@ const API_URL = 'http://127.0.0.1:5000';
 
 class ApiRequestUtil {
 
+    static async getExamResultList(userId: string) {
+        const res = await this.sendGetRequestWithQueryParam('/examResult', {userId : userId});
+        return res['examResultResponseDtoList'];
+    }
+
     static login(param = {}) {
         const res = this.sendPostRequest('/login', param);
         return res;
@@ -25,6 +30,18 @@ class ApiRequestUtil {
     private static async sendGetRequest(path: string) {
 
         const res = await fetch(API_URL + path, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return res.json();
+    }
+
+    private static async sendGetRequestWithQueryParam(path: string, params = {}) {
+
+        const qs = new URLSearchParams(params);
+        const res = await fetch(API_URL + path + `?${qs}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

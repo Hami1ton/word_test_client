@@ -23,7 +23,7 @@ class Menu extends React.Component<IMenu> {
 
           <Switch>
             <Route exact path="/TakeExam" render={ () => <TakeExam loginStore={this.props.loginStore} /> } />
-            <Route exact path="/ExamResult" component={ExamResult} />
+            <Route exact path="/ExamResult" render={() => <ExamResult loginStore={this.props.loginStore} /> } />
           </Switch>
         </BrowserRouter>
       </div>
